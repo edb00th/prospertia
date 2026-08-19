@@ -1,4 +1,0 @@
-import type { Metadata } from 'next'
-import { CTA, InsightGrid, SectionHeading } from '@/components/marketing'
-export const metadata:Metadata={title:'Insights',description:'Practical thinking on B2B marketing, sales, HubSpot, web, technology and AI.'}
-export default function InsightsPage(){return <main id="main-content"><section className="hero-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><SectionHeading eyebrow="Prospertia Insights" title="Ideas grounded in the work of growing B2B businesses." body="Practical observations on marketing, technology, AI and execution — written for people responsible for commercial progress."/></div></section><section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><InsightGrid/></section><CTA title="Have a challenge you would like us to unpack?"/></main>}
