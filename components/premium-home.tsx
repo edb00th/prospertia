@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { FormEvent, useEffect, useState } from 'react'
 
 const CALENDLY = 'https://calendly.com/prospertia/discovery-call'
@@ -25,18 +24,17 @@ function Arrow() { return <span className="ph-arrow" aria-hidden="true" /> }
 function BookingLink({ children, className = 'ph-button ph-button-primary' }: { children: React.ReactNode, className?: string }) { return <a href={CALENDLY} target="_blank" rel="noreferrer" className={className}>{children}<Arrow /></a> }
 
 export function PremiumHome() {
-  const [menu, setMenu] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
   const [story, setStory] = useState(false)
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'fallback'>('idle')
   useEffect(() => {
-    document.body.style.overflow = menu || story ? 'hidden' : ''
+    document.body.style.overflow = story ? 'hidden' : ''
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { setMenu(false); setStory(false) }
+      if (event.key === 'Escape') setStory(false)
     }
     document.addEventListener('keydown', onKeyDown)
     return () => { document.body.style.overflow = ''; document.removeEventListener('keydown', onKeyDown) }
-  }, [menu, story])
+  }, [story])
   useEffect(() => {
     document.documentElement.classList.add('ph-motion-ready')
     const nodes = document.querySelectorAll<HTMLElement>('.ph-reveal')
@@ -87,14 +85,6 @@ export function PremiumHome() {
     }
   }
   return <>
-    <header className="ph-header">
-      <a className="ph-brand" href="#top"><Image src="/logo.png" alt="Prospertia" width={666} height={187} priority /></a>
-      <nav className="ph-nav" aria-label="Primary"><a href="#services">Capabilities</a><a href="#method">Method</a><a href="#work">Work</a><a href="#pricing">Ways to work</a></nav>
-      <a href="#audit" className="ph-button ph-button-small">Explore the Growth Audit <span aria-hidden="true">↓</span></a>
-      <button className="ph-menu-button" onClick={() => setMenu(!menu)} aria-expanded={menu} aria-label="Toggle menu">{menu ? 'Close' : 'Menu'}</button>
-    </header>
-    {menu && <nav className="ph-mobile-nav" aria-label="Mobile"><a onClick={() => setMenu(false)} href="#services">Capabilities</a><a onClick={() => setMenu(false)} href="#method">Method</a><a onClick={() => setMenu(false)} href="#work">Work</a><a onClick={() => setMenu(false)} href="#pricing">Ways to work</a><a onClick={() => setMenu(false)} href="#audit" className="ph-button ph-button-primary">Explore the Growth Audit <span aria-hidden="true">↓</span></a></nav>}
-
     <main id="main-content">
       <section className="ph-hero" id="top">
         <div className="ph-hero-copy"><p className="ph-eyebrow">B2B launch, growth & transformation consultancy</p><h1>One senior partner.<br/><em><span className="ph-hero-nowrap">Every commercial lever.</span></em></h1><p className="ph-lead">Prospertia helps B2B businesses launch and scale with joined-up marketing, sales, technology and AI—without the overhead.</p><div className="ph-actions"><a href="#audit" className="ph-button ph-button-primary">Explore the Growth Audit <span aria-hidden="true">↓</span></a><BookingLink className="ph-text-link">Book a discovery call</BookingLink></div><p className="ph-call-note">A focused diagnostic · clear priorities · a practical 90-day roadmap · no obligation to continue</p></div>
@@ -133,8 +123,6 @@ export function PremiumHome() {
 
       <section className="ph-section ph-reveal ph-contact" id="contact"><div><p className="ph-eyebrow ph-eyebrow-light">Start with the audit</p><h2><span className="ph-heading-line">Put more resource</span><br/>behind growth.</h2><p>Tell us where you need clarity: go-to-market, team shape, tools, technology or delivery priorities.</p><BookingLink className="ph-button ph-button-light">Prefer to talk first?</BookingLink><small>30 minutes · no preparation required · or email hello@prospertia.com</small></div><form onSubmit={submit}><label>Full name<input name="name" required minLength={2} autoComplete="name" /></label><label>Work email<input name="email" type="email" required autoComplete="email" /></label><label>Company<input name="company" required autoComplete="organization" /></label><label>Business stage<select name="turnover" defaultValue=""><option value="">Select your stage</option><option>Pre-launch startup</option><option>Launched and validating</option><option>Scaling £2m–£10m</option><option>Established £10m–£30m</option><option>Established £30m+</option></select></label><label className="ph-form-wide">Where does leadership need clarity?<textarea name="message" required minLength={20} rows={5} placeholder="Tell us what you are launching or scaling, where spend feels diluted, or which team, tools and technology decisions need resolving." /></label><button className="ph-button ph-button-primary" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Enquire about the audit'} <Arrow /></button><p aria-live="polite">{status === 'sent' ? 'Thank you — your enquiry has been sent.' : status === 'fallback' ? 'Something went wrong. Please try again or email hello@prospertia.com.' : ''}</p></form></section>
     </main>
-
-    <footer className="ph-footer"><Image src="/logo.png" alt="Prospertia" width={666} height={187} /><p>Senior strategy. Hands-on execution. Joined-up growth.</p><nav><a href="#services">Capabilities</a><a href="#work">Work</a><a href="#pricing">Ways to work</a><a href="/contact">Contact</a></nav><small>© {new Date().getFullYear()} Prospertia · United Kingdom</small></footer>
 
     {story && <div className="ph-modal" role="dialog" aria-modal="true" aria-labelledby="story-title" onMouseDown={e => { if (e.target === e.currentTarget) setStory(false) }}><div><button onClick={() => setStory(false)} aria-label="Close story">Close</button><p className="ph-eyebrow">Invevo · working story</p><h2 id="story-title">An embedded partnership built for progress.</h2><p>Prospertia supports the internal team across marketing, web, content, creative and HubSpot.</p><p>Senior direction, hands-on delivery and specialist coordination sit within one accountable relationship.</p><BookingLink>Discuss a similar engagement</BookingLink></div></div>}
   </>
