@@ -33,7 +33,7 @@ export function ContactForm() {
         <label className="font-semibold">Work email<input className={control} name="email" type="email" required autoComplete="email" /></label>
         <label className="font-semibold">Company<input className={control} name="company" required autoComplete="organization" /></label>
         <label className="font-semibold">What would you like to change?<textarea className={control} name="message" required minLength={20} rows={6} /></label>
-        <button className="w-fit rounded-full bg-primary px-6 py-3 font-bold text-primary-foreground disabled:opacity-60" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send enquiry'}</button>button>
-        <p aria-live="polite" className="min-h-6 text-sm text-muted-foreground">{status === 'sent' ? 'Thank you. Your enquiry has been sent.' : status === 'error' ? 'We could not send this yet. Please email hello@prospertia.com.' : ''}</p>p>
+        <button className="w-fit rounded-full bg-primary px-6 py-3 font-bold text-primary-foreground disabled:opacity-60" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send enquiry'}</button>
+        <p aria-live="polite" className="min-h-6 text-sm text-muted-foreground">{status === 'sent' ? 'Thank you. Your enquiry has been sent.' : status === 'error' ? 'We could not send this yet. Please email hello@prospertia.com.' : ''}</p>
     </form>
-      }</form>
+      }
